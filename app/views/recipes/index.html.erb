@@ -4,13 +4,16 @@
 <ul id="recipe_list"></ul>
 
 <%= @recipe %>
+<br>
+<%= @recipe_ %>
+<br>
 <%= @hoge %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script>
-  const url = 'https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?applicationId=1038863537950891238';
-  // API取得
-  $.getJSON(url, (data) => {
-      console.log(data.result);
-  });
+  // const url = 'https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?applicationId=1038863537950891238';
+  // // API取得
+  // $.getJSON(url, (data) => {
+  //     console.log(data.result);
+  // });
 </script>
