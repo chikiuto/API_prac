@@ -88,7 +88,10 @@ for index, row in category_df_keyword.iterrows():
         recipe_df = pd.concat([recipe_df, df_append], ignore_index=True, axis=0)
 
 recipe_df.drop(columns='foodImageUrl', inplace=True)
+recipe_df.duplicated(keep='first', subset='recipeTitle')
+recipe_df
 mainData = recipe_df.query('recipeIndication.str.contains("5分以内")', engine='python').sample(n=3).to_html(classes=["table", "table-bordered", "table-hover"], escape=False)
+# mainData
 htmlData = open(r"/Users/tokichi/abe_no_folder/medirom_Web/API_prac/app/views/recipes/result.html.erb","w")
 htmlData.write(mainData)
 htmlData.close()
