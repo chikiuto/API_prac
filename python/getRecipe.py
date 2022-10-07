@@ -47,7 +47,7 @@ for category in json_data['result']['small']:
                     category['categoryId'],
                     parent_dict[category['parentCategoryId']]+"-"+str(category['parentCategoryId'])+"-"+str(category['categoryId']),
                     category['categoryName']
-            ]]
+                ]]
     df_append = pd.DataFrame(data=list_small, columns=category_columns)
     category_df = pd.concat([category_df, df_append], ignore_index=True, axis=0)
 
@@ -59,7 +59,8 @@ category_df_keyword = category_df.query('categoryName.str.contains("サラダ")'
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # 人気レシピを取得する
-recipe_columns = ['recipeId', 'recipeTitle', 'foodImageUrl', 'recipeMaterial', 'recipeCost', 'recipeIndication', 'categoryId', 'categoryName']
+# recipe_columns = ['recipeId', 'recipeTitle', 'foodImageUrl', 'recipeMaterial', 'recipeCost', 'recipeIndication', 'categoryId', 'categoryName']
+recipe_columns = ['recipeTitle', 'foodImageUrl', 'recipeMaterial', 'recipeCost', 'recipeIndication' ]
 recipe_df = pd.DataFrame(columns=recipe_columns)
 
 
@@ -75,21 +76,25 @@ for index, row in category_df_keyword.iterrows():
 
 
     for recipe in recipes:
-        list_small = [[ recipe['recipeId'],
+        list_small = [[ 
                         recipe['recipeTitle'],
                         recipe['foodImageUrl'],
                         recipe['recipeMaterial'],
                         recipe['recipeCost'],
                         recipe['recipeIndication'],
-                        row['categoryId'],
-                        row['categoryName']
-                ]]
+                    ]]
         df_append = pd.DataFrame(data=list_small, columns=recipe_columns)
+        df_append["image"] = df_append["foodImageUrl"].map(lambda s: "<img src='{}' height='200' />".format(s))
         recipe_df = pd.concat([recipe_df, df_append], ignore_index=True, axis=0)
 
-recipe_df.query('recipeIndication.str.contains("5分以内")', engine='python')
+recipe_df.drop(columns='foodImageUrl', inplace=True)
+mainData = recipe_df.query('recipeIndication.str.contains("5分以内")', engine='python').sample(n=3).to_html(classes=["table", "table-bordered", "table-hover"], escape=False)
+htmlData = open(r"/Users/tokichi/abe_no_folder/medirom_Web/API_prac/app/views/recipes/result.html.erb","w")
+htmlData.write(mainData)
+htmlData.close()
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
 
 
 # %%
