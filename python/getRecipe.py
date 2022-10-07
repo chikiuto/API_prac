@@ -92,7 +92,7 @@ recipe_df.duplicated(keep='first', subset='recipeTitle')
 recipe_df
 mainData = recipe_df.query('recipeIndication.str.contains("5分以内")', engine='python').sample(n=3).to_html(classes=["table", "table-bordered", "table-hover"], escape=False)
 # mainData
-htmlData = open(r"/Users/tokichi/abe_no_folder/medirom_Web/API_prac/app/views/recipes/result.html.erb","w")
+htmlData = open(r"/Users/tokichi/abe_no_folder/medirom_Web/API_prac/app/views/recipes/_result.html.erb","w")
 htmlData.write(mainData)
 htmlData.close()
 

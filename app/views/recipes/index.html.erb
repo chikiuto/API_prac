@@ -1,15 +1,8 @@
 <h1>Recipes#index</h1>
 <p>Find me in app/views/recipes/index.html.erb</p>
 
-<ul id="recipe_list"></ul>
-
-
-<br>
-<%= @hoge %>
-<br>
-<%= sam1 = system('/Library/Developer/CommandLineTools/usr/bin/python3 /Users/tokichi/abe_no_folder/medirom_Web/API_prac/python/getRecipe.py') %>
-<br>
-<%= @sam2 %>
-<br>
-<%= link_to '結果を見る', recipes_result_path %>
-<br>
+<div>
+  <% if @recipes.present? %>
+    <%= render partial: 'result'%>
+  <% end %>
+</div>

@@ -2,30 +2,17 @@
 <p>Find me in app/views/books/index.html.erb</p>
 
 
-<div class="container px-10">
-  <table class="table-auto">
-    <tbody>
-        <tr>
-          <td>表紙<td>
-          <td>タイトル<td>
-          <td>著者</td>
-          <td>価格<td>
-        </tr>
-      <% @books.each do |book| %>
-        <tr>
-          <td><%= image_tag book.medium_image_url %><td>
-          <td><%= book.title %><td>
-          <td><%= book.author %></td>
-          <td><%= book.item_price %><td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class="search-box">
+  <%= form_with url: books_index_path, method: :get, local: true do |form| %>
+  <!--フォーム内容 -->
+    <div class="form-group">
+      <%= form.text_field :keyword, class: "form-control"%>
+      <%= form.submit '本の題名を検索', class: "form-control btn btn-success"%>
+    </div>
+  <% end %>
 </div>
-
-<%
-=begin%>
- ×<%= book.titleKana %>
- ◯<%= book.title_kana %>
-<%
-=end%>
+<div>
+  <% if @books.present? %>
+    <%= render partial: 'result'%>
+  <% end %>
+</div>

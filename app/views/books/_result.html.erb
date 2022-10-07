@@ -1,0 +1,20 @@
+<table border="1" class="dataframe table table-bordered table-hover">
+  <thead>
+    <tr style="text-align: right;">
+      <th>title</th>
+      <th>auther</th>
+      <th>caption</th>
+      <th>image</th>
+    </tr>
+  </thead>
+  <% @books.each do |book| %>
+    <tbody>
+      <tr>
+        <td> <%= book.title %> </td>
+        <td> <%= book.author %> </td>
+        <td> <%= book.item_caption %> </td>
+        <td> <%= link_to (image_tag(book.medium_image_url)), book.item_url %> </td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>
