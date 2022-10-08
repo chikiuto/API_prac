@@ -1,4 +1,5 @@
 <table border="1" class="dataframe table table-bordered table-hover">
+
   <thead>
     <tr style="text-align: right;">
       <th>recipeTitle</th>
@@ -8,6 +9,7 @@
       <th>image</th>
     </tr>
   </thead>
+
   <% @category_ids.each do |id| %>
     <% sleep 1 %>
 
@@ -28,6 +30,6 @@
         </tr>
       </tbody>
     <% end %>
-
   <% end %>
+
 </table>
