@@ -1,5 +1,6 @@
 # %%
 
+from ctypes import resize
 import json
 from math import fabs
 import time
@@ -60,41 +61,44 @@ category_df_keyword = category_df.query('categoryName.str.contains("サラダ")'
 
 # 人気レシピを取得する
 # recipe_columns = ['recipeId', 'recipeTitle', 'foodImageUrl', 'recipeMaterial', 'recipeCost', 'recipeIndication', 'categoryId', 'categoryName']
-recipe_columns = ['recipeTitle', 'foodImageUrl', 'recipeMaterial', 'recipeCost', 'recipeIndication' ]
+recipe_columns = ['recipeTitle', 'recipeUrl', 'foodImageUrl', 'recipeMaterial', 'recipeCost', 'recipeIndication' ]
 recipe_df = pd.DataFrame(columns=recipe_columns)
+category_df_keyword.to_csv('/Users/tokichi/abe_no_folder/medirom_Web/API_prac/python/categoryIds.csv')
 
 
-
-for index, row in category_df_keyword.iterrows():
-    time.sleep(1) # 連続でアクセスすると先方のサーバに負荷がかかるので少し待つのがマナー
+# for index, row in category_df_keyword.iterrows():
+#     time.sleep(1) # 連続でアクセスすると先方のサーバに負荷がかかるので少し待つのがマナー
     
-    url = 'https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId='+row['categoryId']
-    res = requests.get(url)
+#     url = 'https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId='+row['categoryId']
+#     res = requests.get(url)
 
-    json_data = json.loads(res.text)
-    recipes = json_data['result']
+#     json_data = json.loads(res.text)
+#     recipes = json_data['result']
 
 
-    for recipe in recipes:
-        list_small = [[ 
-                        recipe['recipeTitle'],
-                        recipe['foodImageUrl'],
-                        recipe['recipeMaterial'],
-                        recipe['recipeCost'],
-                        recipe['recipeIndication'],
-                    ]]
-        df_append = pd.DataFrame(data=list_small, columns=recipe_columns)
-        df_append["image"] = df_append["foodImageUrl"].map(lambda s: "<img src='{}' height='200' />".format(s))
-        recipe_df = pd.concat([recipe_df, df_append], ignore_index=True, axis=0)
+#     for recipe in recipes:
+#         list_small = [[ 
+#                         recipe['recipeTitle'],
+#                         recipe['recipeUrl'],
+#                         recipe['foodImageUrl'],
+#                         recipe['recipeMaterial'],
+#                         recipe['recipeCost'],
+#                         recipe['recipeIndication'],
+#                     ]]
+#         df_append = pd.DataFrame(data=list_small, columns=recipe_columns)
+#         df_append["image"] = df_append["foodImageUrl"].map(lambda s: "<img src='{}' height='200' />".format(s))
+#         df_append["go to recipe"] = df_append["recipeUrl"].map(lambda s: "<a href='{}' > レシピへ</a>".format(s))
+#         recipe_df = pd.concat([recipe_df, df_append], ignore_index=True, axis=0)
 
-recipe_df.drop(columns='foodImageUrl', inplace=True)
-recipe_df.duplicated(keep='first', subset='recipeTitle')
-recipe_df
-mainData = recipe_df.query('recipeIndication.str.contains("5分以内")', engine='python').sample(n=3).to_html(classes=["table", "table-bordered", "table-hover"], escape=False)
-# mainData
-htmlData = open(r"/Users/tokichi/abe_no_folder/medirom_Web/API_prac/app/views/recipes/_result.html.erb","w")
-htmlData.write(mainData)
-htmlData.close()
+# recipe_df.drop(columns='foodImageUrl', inplace=True)
+# recipe_df.drop(columns='recipeUrl', inplace=True)
+# recipe_df.duplicated(keep='first', subset='recipeTitle')
+# # recipe_df
+# mainData = recipe_df.query('recipeIndication.str.contains("5分以内")', engine='python').sample(n=3).to_html(classes=["table", "table-bordered", "table-hover"], escape=False)
+# # mainData
+# htmlData = open(r"/Users/tokichi/abe_no_folder/medirom_Web/API_prac/app/views/recipes/_result.html.erb","w")
+# htmlData.write(mainData)
+# htmlData.close()
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
