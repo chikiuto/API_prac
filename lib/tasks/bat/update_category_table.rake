@@ -1,5 +1,5 @@
 namespace :bat do
-  desc 'サンプルバッチ処理1'
+  desc 'update category table'
   # config/environment.rbを読み込み、環境ごとの設定を反映してからsample1を実行
   task update_category_table: :environment do
     # 具体的な処理を実装
