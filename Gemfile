@@ -44,6 +44,7 @@ gem "bootsnap", require: false
 
 gem 'dotenv-rails'
 gem 'rakuten_web_service'
+gem 'whenever', require: false
 
 # Use Sass to process CSS
 # gem "sassc-rails"

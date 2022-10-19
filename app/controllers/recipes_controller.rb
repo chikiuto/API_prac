@@ -36,25 +36,12 @@ class RecipesController < ApplicationController
                      "50-655-1916", "18-703-2003"
                     ]
 
-    # <% category_ids.each do |id| %>
-    #   <% sleep 1 %>
-  
-    #   <% uri = URI.parse("https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId=#{id}") %>
-    #   <% json = Net::HTTP.get(uri) %>
-  
-    #   <% hash = JSON.parse(json) %>
-    #   <% result = hash["result"] %>
-    # <% end %>
+    uri = URI.parse('https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?applicationId=1038863537950891238');
+    json = Net::HTTP.get(uri);
 
-    # category_ids.each do |id|
-    #   sleep 1
-  
-    #   uri = URI.parse("https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId=#{id}")
-    #   json = Net::HTTP.get(uri)
-  
-    #   hash = JSON.parse(json)
-    #   @result = hash["result"]
-    # end
+    hash = JSON.parse(json);
+    @result = hash["result"];
 
+    
   end
 end

@@ -1,5 +1,4 @@
 <table border="1" class="dataframe table table-bordered table-hover">
-
   <thead>
     <tr style="text-align: right;">
       <th>recipeTitle</th>
@@ -10,7 +9,9 @@
     </tr>
   </thead>
 
-  <% @category_ids.each do |id| %>
+  <%
+=begin%>
+ <% @category_ids.each do |id| %>
     <% sleep 1 %>
 
     <% uri = URI.parse("https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId=#{id}") %>
@@ -30,6 +31,8 @@
         </tr>
       </tbody>
     <% end %>
-  <% end %>
+  <% end %> 
+<%
+=end%>
 
 </table>
