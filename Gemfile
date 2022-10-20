@@ -45,6 +45,15 @@ gem "bootsnap", require: false
 gem 'dotenv-rails'
 gem 'rakuten_web_service'
 gem 'whenever', require: false
+gem 'daru', '~> 0.1.5'
+gem 'daru-io', '~> 0.1.0'
+gem 'jsonpath', '~> 1.1.2'
+gem 'spreadsheet', '~> 1.1.1'
+gem 'mechanize', '~> 2.7.5'
+
+gem 'pandas'
+gem 'pycall'
+
 
 # Use Sass to process CSS
 # gem "sassc-rails"

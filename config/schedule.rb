@@ -44,6 +44,6 @@ set :output, "#{Rails.root}/log/cron.log"
 # end
 
 # 毎日9:00に実行
-every 1.day, at: '9:00 am' do
+every 1.day, at: '10:45 pm' do
   rake 'bat:update_category_table'
 end

@@ -37,10 +37,10 @@ class RecipesController < ApplicationController
                     ]
 
     uri = URI.parse('https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?applicationId=1038863537950891238');
-    json = Net::HTTP.get(uri);
+    @json = Net::HTTP.get(uri);
 
-    hash = JSON.parse(json);
-    @result = hash["result"];
+    @hash = JSON.parse(@json);
+    @result = @hash["result"];
 
     
   end

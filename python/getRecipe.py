@@ -13,6 +13,7 @@ import pandas as pd
 # 全てのカテゴリーを取得
 res = requests.get('https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?applicationId=1038863537950891238')
 json_data = json.loads(res.text)
+# print(json_data)
 
 category_columns = ['category1','category2','category3','categoryId','categoryName']
 category_df = pd.DataFrame(columns=category_columns)
@@ -52,7 +53,7 @@ for category in json_data['result']['small']:
     df_append = pd.DataFrame(data=list_small, columns=category_columns)
     category_df = pd.concat([category_df, df_append], ignore_index=True, axis=0)
 
-# print(category_df)
+print(category_df)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 # キーワードを含む行を抽出
@@ -95,9 +96,9 @@ for index, row in category_df_keyword.iterrows():
 recipe_df.drop(columns='foodImageUrl', inplace=True)
 recipe_df.drop(columns='recipeUrl', inplace=True)
 recipe_df.duplicated(keep='first', subset='recipeTitle')
-# recipe_df
-mainData = recipe_df.query('recipeIndication.str.contains("5分以内")', engine='python').sample(n=3).to_html(classes=["table", "table-bordered", "table-hover"], escape=False)
-print(mainData)
+recipe_df
+# mainData = recipe_df.query('recipeIndication.str.contains("5分以内")', engine='python').sample(n=3).to_html(classes=["table", "table-bordered", "table-hover"], escape=False)
+# print(mainData)
 # htmlData = open(r"/Users/tokichi/abe_no_folder/medirom_Web/API_prac/app/views/recipes/_result.html.erb","w")
 # htmlData.write(mainData)
 # htmlData.close()
