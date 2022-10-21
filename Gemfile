@@ -54,6 +54,12 @@ gem 'mechanize', '~> 2.7.5'
 gem 'pandas'
 gem 'pycall'
 
+gem 'hirb'
+gem 'hirb-unicode'
+
+gem 'pry-rails'
+
+
 
 # Use Sass to process CSS
 # gem "sassc-rails"

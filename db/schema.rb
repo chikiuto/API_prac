@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_20_071833) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_20_235049) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,8 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_071833) do
     t.string "category1"
     t.string "category2"
     t.string "category3"
-    t.string "categoryId"
-    t.string "categoryName"
+    t.string "category_id"
+    t.string "category_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
