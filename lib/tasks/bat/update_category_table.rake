@@ -49,17 +49,17 @@ namespace :bat do
       category_ary.push(list_small)
     end
 
-    category_ary.each do |cate|
-      # if Category.exists?(category_name: cate[4])
-      #   print( "There are already same data '#{cate[4]}'" )
-      # else
-        category = Category.create( category1: cate[0],
-                                    category2: cate[1],
-                                    category3: cate[2],
-                                    category_id: cate[3],
-                                    category_name: cate[4]
+    category_ary.each do |ary|
+      if Category.exists?(category_id: ary[3])
+        print( "There are already same data '#{ary[4]}'" )
+      else
+        category = Category.create( category1: ary[0],
+                                    category2: ary[1],
+                                    category3: ary[2],
+                                    category_id: ary[3],
+                                    category_name: ary[4]
                                   )
-      # end
+      end
     end
 
     # このファイルを実行
