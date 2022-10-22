@@ -1,17 +1,15 @@
 require 'json'
 
 namespace :bat do
-  desc 'update category table'
+  desc 'update category and recipe table'
   # config/environment.rbを読み込み、環境ごとの設定を反映してから update_category_table を実行
   task update_category_table: :environment do
-    # 具体的な処理を実装
 
     uri = URI.parse('https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?applicationId=1038863537950891238')
     API_json_data = Net::HTTP.get(uri)
-    # rubyではjsonをhashにして扱わなければならない
-    hash_data = JSON.parse(API_json_data) 
+    hash_data = JSON.parse(API_json_data) # rubyではjsonをhashにして扱う 
 
-    category_ary = [] # jsonを入れる配列
+    category_ary = [] # category API のデータを入れる配列
     parent_dict = {} # mediumカテゴリの親カテゴリの辞書
     
     # 大カテゴリ
@@ -64,50 +62,6 @@ namespace :bat do
       end
     end
 
-    recipe_ary = []
-    Category.all.each do |cate|
-    # 連続でアクセスすると先方のサーバに負荷がかかるので少し待つのがマナー
-      sleep(1)
-      # recipe_uri = URI.parse('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId=10-69-2133')
-
-      recipe_uri = URI.parse('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId='+cate['category_id'])
-      recipeAPI_json_data = Net::HTTP.get(recipe_uri)
-      # rubyではjsonをhashにして扱わなければならない
-      recipe_hash_data = JSON.parse(recipeAPI_json_data)
-
-      # p recipe_hash_data['result']
-      
-      recipe_hash_data['result'].each do |recipe|
-        recipe_list = [ recipe['recipeTitle'],
-                        recipe['recipeUrl'],
-                        recipe['foodImageUrl'],
-                        recipe['recipeMaterial'],
-                        recipe['recipeCost'],
-                        recipe['recipeIndication']
-                      ]
-        recipe_ary.push(recipe_list)
-      end
-    end
-
-    # p recipe_ary
-
-    # DBに追加
-    recipe_ary.each do |ary|
-      if Recipe.exists?(recipe_title: ary[0])
-        p "There are already same data '#{ary[0]}'" 
-      else
-        category = Recipe.create(recipe_title: ary[0],
-                                recipe_url: ary[1],
-                                food_image_url: ary[2],
-                                recipe_material: ary[3],
-                                recipe_cost: ary[4],
-                                recipe_indication: ary[5]
-                                )
-      end
-    end
-    
-
-
     # このファイルを実行
     # rails bat:update_category_table
     # seed リセット
@@ -126,5 +80,40 @@ namespace :bat do
     # 行数確認
     # SELECT COUNT(*) FROM categories;
 
+    recipe_ary = []  # ranking API のデータを入れる配列
+    Category.all.each do |cate|
+      # 連続でアクセスすると先方のサーバに負荷がかかるので少し待つのがマナー
+      sleep(1)
+      recipe_uri = URI.parse('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId='+cate['category_id'])
+      recipeAPI_json_data = Net::HTTP.get(recipe_uri)
+      recipe_hash_data = JSON.parse(recipeAPI_json_data)
+      
+      recipe_hash_data['result'].each do |recipe|
+        recipe_list = [ recipe['recipeTitle'],
+                        recipe['recipeUrl'],
+                        recipe['foodImageUrl'],
+                        recipe['recipeMaterial'],
+                        recipe['recipeCost'],
+                        recipe['recipeIndication']
+                      ]
+        recipe_ary.push(recipe_list)
+      end
+    end
+
+    # DBに追加
+    recipe_ary.each do |ary|
+      if Recipe.exists?(recipe_title: ary[0])
+        p "There are already same data '#{ary[0]}'" 
+      else
+        category = Recipe.create(recipe_title: ary[0],
+                                recipe_url: ary[1],
+                                food_image_url: ary[2],
+                                recipe_material: ary[3],
+                                recipe_cost: ary[4],
+                                recipe_indication: ary[5]
+                                )
+      end
+    end
+    
   end
 end
