@@ -10,7 +10,6 @@ namespace :bat do
     API_json_data = Net::HTTP.get(uri)
     # rubyではjsonをhashにして扱わなければならない
     hash_data = JSON.parse(API_json_data) 
-    # result = hash['result']['large']
 
     category_ary = [] # jsonを入れる配列
     parent_dict = {} # mediumカテゴリの親カテゴリの辞書
@@ -49,18 +48,65 @@ namespace :bat do
       category_ary.push(list_small)
     end
 
+    # DBに追加
     category_ary.each do |ary|
       if Category.exists?(category_id: ary[3])
-        print( "There are already same data '#{ary[4]}'" )
+        p "There are already same data '#{ary[4]}'" 
       else
-        category = Category.create( category1: ary[0],
-                                    category2: ary[1],
-                                    category3: ary[2],
-                                    category_id: ary[3],
-                                    category_name: ary[4]
-                                  )
+        if ary[4].include?("サラダ")
+          category = Category.create(category1: ary[0],
+                                     category2: ary[1],
+                                     category3: ary[2],
+                                     category_id: ary[3],
+                                     category_name: ary[4]
+                                    )
+        end
       end
     end
+
+    recipe_ary = []
+    Category.all.each do |cate|
+    # 連続でアクセスすると先方のサーバに負荷がかかるので少し待つのがマナー
+      sleep(1)
+      # recipe_uri = URI.parse('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId=10-69-2133')
+
+      recipe_uri = URI.parse('https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId='+cate['category_id'])
+      recipeAPI_json_data = Net::HTTP.get(recipe_uri)
+      # rubyではjsonをhashにして扱わなければならない
+      recipe_hash_data = JSON.parse(recipeAPI_json_data)
+
+      # p recipe_hash_data['result']
+      
+      recipe_hash_data['result'].each do |recipe|
+        recipe_list = [ recipe['recipeTitle'],
+                        recipe['recipeUrl'],
+                        recipe['foodImageUrl'],
+                        recipe['recipeMaterial'],
+                        recipe['recipeCost'],
+                        recipe['recipeIndication']
+                      ]
+        recipe_ary.push(recipe_list)
+      end
+    end
+
+    # p recipe_ary
+
+    # DBに追加
+    recipe_ary.each do |ary|
+      if Recipe.exists?(recipe_title: ary[0])
+        p "There are already same data '#{ary[0]}'" 
+      else
+        category = Recipe.create(recipe_title: ary[0],
+                                recipe_url: ary[1],
+                                food_image_url: ary[2],
+                                recipe_material: ary[3],
+                                recipe_cost: ary[4],
+                                recipe_indication: ary[5]
+                                )
+      end
+    end
+    
+
 
     # このファイルを実行
     # rails bat:update_category_table
