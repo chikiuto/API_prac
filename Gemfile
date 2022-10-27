@@ -59,6 +59,7 @@ gem 'hirb-unicode'
 
 gem 'pry-rails'
 
+gem 'async', '~> 1.5'
 
 
 # Use Sass to process CSS

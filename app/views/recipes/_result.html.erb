@@ -9,30 +9,21 @@
     </tr>
   </thead>
 
-  <%
-=begin%>
- <% @category_ids.each do |id| %>
-    <% sleep 1 %>
-
-    <% uri = URI.parse("https://app.rakuten.co.jp/services/api/Recipe/CategoryRanking/20170426?applicationId=1038863537950891238&categoryId=#{id}") %>
-    <% json = Net::HTTP.get(uri) %>
-
-    <% hash = JSON.parse(json) %>
-    <% result = hash["result"] %>
-
-    <% result.each do |recipe| %>
-      <tbody>
-        <tr>
-          <td> <%= link_to recipe["recipeTitle"], recipe["recipeUrl"] %> </td>
-          <td> <%= recipe["recipeIndication"] %> </td>
-          <td> <%= recipe["recipeCost"] %> </td>
-          <td> <%= recipe["recipeMaterial"] %> </td>
-          <td> <%= link_to (image_tag(recipe["mediumImageUrl"])), recipe["recipeUrl"] %> </td>
-        </tr>
-      </tbody>
-    <% end %>
-  <% end %> 
-<%
-=end%>
+  <% @recipes.each do |recipe| %>
+    <tbody>
+      <tr>
+        <td> <%= recipe.recipe_title %> </td>
+        <td> <%= recipe.recipe_indication %> </td>
+        <td> <%= recipe.recipe_cost %> </td>
+        <td> <%= recipe.recipe_material.delete('"[]') %> </td>
+        <td> <%= link_to (image_tag recipe.food_image_url,
+                :style => "height: 120px" ),
+                recipe.recipe_url,
+                target: :_blank,
+                rel: "noopener noreferrer" %>
+        </td>
+      </tr>
+    </tbody>
+  <% end %>
 
 </table>
