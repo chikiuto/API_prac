@@ -2,11 +2,43 @@
 <p>Find me in app/views/recipes/index.html.erb</p>
 
 <div class="search-box">
-  <%= form_with url: recipes_index_path, method: :get, local: true do |form| %>
+  <%= form_with url: recipes_index_path, method: :get, local: true do |f| %>
   <!--フォーム内容 -->
     <div class="form-group">
-      <%= form.text_field :keyword, class: "form-control"%>
-      <%= form.submit 'サラダのレシピを検索', class: "form-control btn btn-success"%>
+
+      <%
+=begin%>
+ <%= form.select :jikan,
+      [['指定なし', ''],['5分以内', '5分以内'], ['約10分', '約10分'], ['約15分', '約15分'],
+       ['約30分', '約30分'], ['約1時間', '約1時間'], ['1時間以上', '1時間以上']],
+      { selected: '' },
+      class: "form-control"%> 
+<%
+=end%>
+      
+      <%= f.radio_button :jikan , ''%>
+      <%= f.label :jikan ,"なんでもいいです", value: '' %>
+      <br>
+      <%= f.radio_button :jikan ,'5分以内' %>
+      <%= f.label :jikan ,"サラダ？あぁ、そういう食べ物あったね", value: '5分以内', style: "display: inline-block;" %>
+      <br>
+      <%= f.radio_button :jikan ,'約10分' %>
+      <%= f.label :jikan ,"皿だけ用意してあります", value: '約10分', style: "display: inline-block;" %>
+      <br>
+      <%= f.radio_button :jikan ,'約15分' %>
+      <%= f.label :jikan ,"野菜が恋しいかも", value: '約15分', style: "display: inline-block;"%>
+      <br>
+      <%= f.radio_button :jikan ,'約30分' %>
+      <%= f.label :jikan ,"サラダモチベーションって知ってる？", value: '約30分', style: "display: inline-block;" %>
+      <br>
+      <%= f.radio_button :jikan ,'約1時間' %>
+      <%= f.label :jikan ,"サラダのために1時間は欲しい", value: '約1時間', style: "display: inline-block;" %>
+      <br>
+      <%= f.radio_button :jikan ,'1時間以上' %>
+      <%= f.label :jikan ,"本格的なサラダをくれ！", value: '1時間以上', style: "display: inline-block;" %>
+      <br>
+      <%= f.text_field :zairyou, class: "form-control"%>
+      <%= f.submit 'サラダのレシピを検索', class: "form-control btn btn-success"%>
     </div>
   <% end %>
 </div>

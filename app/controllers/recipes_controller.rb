@@ -7,8 +7,11 @@ class RecipesController < ApplicationController
     # recipe_cost
     # recipe_indication
 
-    if params[:keyword]
-      @recipes = Recipe.where("recipe_material LIKE ?", "%#{params[:keyword]}%")
+    if params[:zairyou]
+      @recipes = Recipe.where("recipe_material LIKE ?", "%#{params[:zairyou]}%")
+      if params[:jikan]
+        @recipes = @recipes.where("recipe_indication LIKE ?", "%#{params[:jikan]}%")
+      end
     end
   end
 end
