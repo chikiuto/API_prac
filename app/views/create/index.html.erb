@@ -1,0 +1,26 @@
+<h1>Create#index</h1>
+<p>Find me in app/views/create/index.html.erb</p>
+
+<div>
+  <table border="1" class="dataframe table table-bordered table-hover">
+    <thead>
+      <tr style="text-align: right;">
+        <th>recipeTitle</th>
+        <th>recipeIndication</th>
+        <th>recipeCost</th>
+        <th>recipeMaterial</th>
+        <th>image</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%= @recipe.recipe_title %> </td>
+        <td> <%= @recipe.recipe_indication %> </td>
+        <td> <%= @recipe.recipe_cost %> </td>
+        <td> <%= @recipe.recipe_material.delete('"[]') %> </td>
+        <td> <%= image_tag @recipe.food_image_url, :style => "height: 120px" %>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
