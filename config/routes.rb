@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  get '/' => 'top#index'
   get 'recipes/index' => 'recipes#index'
   get 'books/index' => 'books#index'
   
