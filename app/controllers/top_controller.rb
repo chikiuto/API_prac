@@ -1,5 +1,5 @@
 class TopController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = Timeline.all
   end
 end

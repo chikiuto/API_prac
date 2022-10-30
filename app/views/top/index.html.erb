@@ -1,11 +1,28 @@
-<h1>Top#index</h1>
-<p>Find me in app/views/top/index.html.erb</p>
 
 <div class="hero">
   <%= link_to "サラダをつくる", recipes_index_path %>
 </div>
 
-<div>
-  <%= @posts %>
-</div>
 
+<div>
+  <table border="1" class="dataframe table table-bordered table-hover">
+    <thead>
+      <tr style="text-align: right;">
+        <th>性別</th>
+        <th>年齢</th>
+        <th>recipe_title</th>
+        <th>image</th>
+      </tr>
+    </thead>
+    <% @posts.each do |post| %>
+      <tbody>
+        <tr>
+          <td> <%= post.sex %> </td>
+          <td> <%= post.age %> </td>
+          <td> <%= post.recipe_title %> </td>
+          <td> <%= image_tag post.food_image_url, :style => "height: 120px" %>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+</div>

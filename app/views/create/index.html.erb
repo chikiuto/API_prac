@@ -1,5 +1,4 @@
-<h1>Create#index</h1>
-<p>Find me in app/views/create/index.html.erb</p>
+<p>作ってくれてありがとう</p>
 
 <div>
   <table border="1" class="dataframe table table-bordered table-hover">
@@ -23,4 +22,23 @@
     </tbody>
   </table>
 </div>
+
+<div class="accept-box">
+  <%= form_with url: create_post_path, method: :post, local: true do |f| %>
+    <div class="form-group">
+      <%= f.hidden_field :recipe_title, :value => @recipe.recipe_title %>
+      <%= f.hidden_field :recipe_url, :value=> @recipe.recipe_url %>
+      <%= f.hidden_field :food_image_url, :value=> @recipe.food_image_url %>
+    </div>
+    <div class="form-group">
+      <%= f.label :sex, '性別' %>
+      <%= f.select :sex, {'男性': '男性', '女性': '女性'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+    </div>
+    <div class="form-group">
+      <%= f.label :age, '年齢' %>
+      <%= f.select :age, {'20代未満': '20代未満', '20代': '20代', '30代': '30代', '40代': '40代', '50代': '50代', '60代以上': '60代以上'}, { include_blank: '選択してください'}, { class: 'form-control' , required: true } %>
+      <%= f.submit '投稿する', class: "form-control btn btn-success"%>
+    </div>
+  <% end %>
+ </div>
 
