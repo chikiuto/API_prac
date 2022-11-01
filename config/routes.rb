@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'books/index' => 'books#index'
 
   get 'create/index' => 'create#index'
-  post 'create/post' => 'create#create'
+  post 'create/post' => 'create#post'
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

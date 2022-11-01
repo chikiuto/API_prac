@@ -1,5 +1,7 @@
 class TopController < ApplicationController
   def index
-    @posts = Timeline.all
+    
+    @reports = Report.all.order(created_at: :desc)
+    
   end
 end

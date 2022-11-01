@@ -3,24 +3,26 @@
   <%= link_to "サラダをつくる", recipes_index_path %>
 </div>
 
-
 <div>
   <table border="1" class="dataframe table table-bordered table-hover">
     <thead>
       <tr style="text-align: right;">
         <th>性別</th>
         <th>年齢</th>
+        <th>recipe_id</th>
         <th>recipe_title</th>
         <th>image</th>
       </tr>
     </thead>
-    <% @posts.each do |post| %>
+    <% @reports.each do |report| %>
+      <% recipe = Recipe.find(report.recipe_id) %>
       <tbody>
         <tr>
-          <td> <%= post.sex %> </td>
-          <td> <%= post.age %> </td>
-          <td> <%= post.recipe_title %> </td>
-          <td> <%= image_tag post.food_image_url, :style => "height: 120px" %>
+          <td> <%= report.sex %> </td>
+          <td> <%= report.age %> </td>
+          <td> <%= report.recipe_id %> </td>
+          <td> <%= recipe.recipe_title %> </td>
+          <td> <%= image_tag recipe.food_image_url, :style => "height: 120px" %> 
         </tr>
       </tbody>
     <% end %>

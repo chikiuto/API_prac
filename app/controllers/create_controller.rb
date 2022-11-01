@@ -3,14 +3,20 @@ class CreateController < ApplicationController
     @recipe = Recipe.find(params[:recipe_id])
   end
 
-  def create
-    # t.string :age
-    # t.string :sex
-    # t.string :recipe_title
-    # t.string :recipe_url
-    # t.string :food_image_url
+  def post
+    # t.string "age"
+    # t.string "sex"
+    # t.string "user_id"
+    # t.string "recipe_id"
+    # t.datetime "created_at", null: false
+    # t.datetime "updated_at", null: false
 
-    @post = Timeline.create(age: params[:age], sex: params[:sex], recipe_title: params[:recipe_title], recipe_url: params[:recipe_url], food_image_url: params[:food_image_url])
+    Report.create(sex: params[:sex],
+                  age: params[:age],
+                  user_id: params[:user_id],
+                  recipe_id: params[:recipe_id],
+                  # comment: params[:comment],
+                  )
     redirect_to top_path
   end
 end

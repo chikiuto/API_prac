@@ -3,8 +3,8 @@ class CreateReports < ActiveRecord::Migration[7.0]
     create_table :reports do |t|
       t.string :age
       t.string :sex
-      t.string :user_id
-      t.string :recipe_id
+      t.integer :user_id
+      t.integer :recipe_id
 
       t.timestamps
     end
