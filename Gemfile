@@ -61,6 +61,8 @@ gem 'pry-rails'
 
 gem 'async', '~> 1.5'
 
+gem 'backports', require: false
+
 
 # Use Sass to process CSS
 # gem "sassc-rails"

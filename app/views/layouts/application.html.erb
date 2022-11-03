@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>APIPrac</title>
+    <title>Saladays</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,11 +12,22 @@
   
   <header>
     <div>
-      <h1 class="PageTitle">Saladays</h1>
+      <h1><%= link_to "Saladays", top_path %></h1>
       <%= link_to "つくる", recipes_index_path %>
+      <br>
       <%= link_to "うp主", recipes_index_path %>
+      <br>
+      <%= link_to "signUp", signup_path %>
+      <br>
+      <%= link_to "signIn", signin_path %>
     </div>
   </header>
+  
+  <% if flash[:notice] %>
+    <div class="flash">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
   
   <body>
     <%= yield %>
@@ -27,7 +38,7 @@
 
   <footer>
     <div class="profile">
-      <h1>プロフィール</h1>
+      <h1>フッター</h1>
     </div>
   </footer>
 </html>

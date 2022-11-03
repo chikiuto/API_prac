@@ -6,6 +6,12 @@ Rails.application.routes.draw do
 
   get 'create/index' => 'create#index'
   post 'create/post' => 'create#post'
+
+  get 'signup' => 'users#new'
+  post 'signup' => 'users#signup'
+  get 'signin' => 'users#signin_form'
+  post 'signin' => 'users#signin'
+
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

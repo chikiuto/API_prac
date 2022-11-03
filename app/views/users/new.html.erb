@@ -1,0 +1,22 @@
+<div class="form-heading">新規ユーザー登録</div>
+  <div class="form users-form">
+    <div class="form-body">
+
+      <% @user.errors.full_messages.each do |message| %>
+      <div class="form-error">
+        <%= message %>
+      </div>
+      <% end %>
+
+      <%= form_with url: signup_path, method: :post, local: true do |f| %>
+        <p>ユーザー名</p>
+        <%= f.text_field :name, class: ""%>
+        <p>メールアドレス</p>
+        <%= f.text_field :email, class: ""%>
+        <p>パスワード</p>
+        <%= f.password_field :password %>
+        <%= f.submit '新規登録', class: "form-control btn btn-success"%>
+      <% end %>
+    </div>
+  </div>
+</div>
