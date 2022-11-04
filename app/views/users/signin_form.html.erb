@@ -1,13 +1,17 @@
 <div class="form-heading">ログイン</div>
 <div class="form users-form">
   <div class="form-body">
-    <!-- form_tagメソッドを追加してください -->
-    <%= form_with url: signin_path, method: :post, local: true do |f| %>
-      <p>ユーザー名</p>
-      <%= f.text_field :name, class: ""%>
+    <% if @error_message %>
+      <div class="form-error">
+        <%= @error_message %>
+      </div>
+    <% end %>
+    <%= form_with(url: signin_path, local: true) do |f| %>
+      <p>メールアドレス</p>
+      <%= f.email_field :email ,placeholder: @email %>
       <p>パスワード</p>
-      <%= f.password_field :password %>
-      <%= f.submit 'ログイン', class: "form-control btn btn-success"%>
+      <%= f.password_field :password ,value: @password %>
+      <%= f.submit 'SignIn', class: "form-control btn btn-success"%>
     <% end %>
   </div>
 </div>

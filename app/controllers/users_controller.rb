@@ -15,15 +15,25 @@ class UsersController < ApplicationController
 
   def signin_form
   end
-
+  
   def signin
-    @user = User.find_by(name: params[:name], password: params[:password])
-    if @user $$ @user.authenticate(params[:password])
+    @user = User.find_by(email: params[:email])
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
       flash[:notice] = "ログインしました"
       redirect_to recipes_index_path
     else
-      render recipes_index_path
+      @error_message = "メールアドレスまたはパスワードが間違っています"
+      @email = params[:email]
+      @password = params[:password]
+      render("users/signin_form")
     end
+  end
+
+  def signout
+    session[:user_id] = nil
+    flash[:notice] = 'ログアウトしました'
+    redirect_to recipes_index_path
   end
 
   

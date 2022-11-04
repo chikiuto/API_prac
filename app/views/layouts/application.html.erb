@@ -13,13 +13,27 @@
   <header>
     <div>
       <h1><%= link_to "Saladays", top_path %></h1>
-      <%= link_to "つくる", recipes_index_path %>
-      <br>
-      <%= link_to "うp主", recipes_index_path %>
-      <br>
-      <%= link_to "signUp", signup_path %>
-      <br>
-      <%= link_to "signIn", signin_path %>
+      <li>
+        <%= link_to "つくる", recipes_index_path %>
+      </li>
+      <li>
+      <%= link_to "うp主", top_intro_path %>
+      </li>
+      <% if session[:user_id] %>
+        <li>
+          現在のユーザー：<%= session[:user_id] %>
+        </li>
+        <li>
+          <%= link_to "sign Out", signout_path, data: {turbo_method: :post}  %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to "sign Up", signup_path %>
+        </li>
+        <li>
+          <%= link_to "sign In", signin_path %>
+        </li>
+      <% end %>
     </div>
   </header>
   
