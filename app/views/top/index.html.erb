@@ -13,6 +13,7 @@
         <th>recipe_id</th>
         <th>user_id</th>
         <th>recipe_title</th>
+        <th>comment</th>
         <th>image</th>
       </tr>
     </thead>
@@ -24,7 +25,8 @@
           <td> <%= report.age %> </td>
           <td> <%= report.recipe_id %> </td>
           <td> <%= report.user_id %> </td>
-          <td> <%= recipe.recipe_title %> </td>
+          <td> <%= recipe.title %> </td>
+          <td> <%= report.comment %> </td>
           <td> <%= image_tag recipe.food_image_url, :style => "height: 120px" %> 
         </tr>
       </tbody>

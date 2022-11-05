@@ -13,10 +13,10 @@
     </thead>
     <tbody>
       <tr>
-        <td> <%= @recipe.recipe_title %> </td>
-        <td> <%= @recipe.recipe_indication %> </td>
-        <td> <%= @recipe.recipe_cost %> </td>
-        <td> <%= @recipe.recipe_material.delete('"[]') %> </td>
+        <td> <%= @recipe.title %> </td>
+        <td> <%= @recipe.indication %> </td>
+        <td> <%= @recipe.cost %> </td>
+        <td> <%= @recipe.material.delete('"[]') %> </td>
         <td> <%= image_tag @recipe.food_image_url, :style => "height: 120px" %>
       </tr>
     </tbody>
@@ -45,5 +45,6 @@
       <%= f.submit '投稿する', class: "form-control btn btn-success"%>
     </div>
   <% end %>
+  <%= link_to "投稿しません", top_path %>
  </div>
 

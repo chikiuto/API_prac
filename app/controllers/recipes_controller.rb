@@ -8,9 +8,9 @@ class RecipesController < ApplicationController
     # recipe_indication
 
     if params[:zairyou]
-      @recipes = Recipe.where("recipe_material LIKE ?", "%#{params[:zairyou]}%")
+      @recipes = Recipe.where("material LIKE ?", "%#{params[:zairyou]}%")
       if params[:jikan]
-        @recipes = @recipes.where("recipe_indication LIKE ?", "%#{params[:jikan]}%")
+        @recipes = @recipes.where("indication LIKE ?", "%#{params[:jikan]}%")
       end
     end
   end
