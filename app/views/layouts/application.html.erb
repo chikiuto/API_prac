@@ -21,7 +21,7 @@
       </li>
       <% if session[:user_id] %>
         <li>
-          現在のユーザー：<%= session[:user_id] %>
+          現在のユーザーid : <%= session[:user_id] %>
         </li>
         <li>
           <%= link_to "sign Out", signout_path, data: {turbo_method: :post}  %>

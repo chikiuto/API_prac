@@ -15,7 +15,7 @@ class CreateController < ApplicationController
                   age: params[:age],
                   user_id: params[:user_id],
                   recipe_id: params[:recipe_id],
-                  # comment: params[:comment],
+                  comment: params[:comment]
                   )
     redirect_to top_path
   end

@@ -27,7 +27,7 @@
   <%= form_with url: create_post_path, method: :post, local: true do |f| %>
     <div class="form-group">
       <% if session[:user_id] %>
-        <% f.hidden_field :user_id, :value => session[:user_id] %> 
+        <%= f.hidden_field :user_id, :value => session[:user_id] %> 
       <% end %>
       <%= f.hidden_field :recipe_id, :value=> @recipe.id %>
       <%= f.label :sex, '性別' %>
@@ -39,6 +39,9 @@
                           '40代': '40代', '50代': '50代', '60代以上': '60代以上'},
                           { include_blank: '選択してください'},
                           { class: 'form-control' , required: true } %>
+
+      <%= f.label :comment, 'コメント' %>
+      <%= f.text_area :comment %>      
       <%= f.submit '投稿する', class: "form-control btn btn-success"%>
     </div>
   <% end %>
