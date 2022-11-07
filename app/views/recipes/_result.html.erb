@@ -9,19 +9,18 @@
     </tr>
   </thead>
   <% @recipes.each do |recipe| %>
-    <tbody>
-      <tr>
-        <td> <%= recipe.title %> </td>
-        <td> <%= recipe.indication %> </td>
-        <td> <%= recipe.cost %> </td>
-        <td> <%= recipe.material.delete('"[]') %> </td>
-        <td> <%= image_tag recipe.food_image_url, :style => "height: 120px" %>
-        <br>
-        <br>
-        <%= link_to "つくる", create_index_path(recipe_id: recipe.id), onclick: "window.open('#{recipe.url}', '_blank')" %>
-        </td>
-      </tr>
-    </tbody>
+  <tbody>
+    <tr>
+      <td> <%= recipe.title %> </td>
+      <td> <%= recipe.indication %> </td>
+      <td> <%= recipe.cost %> </td>
+      <td> <%= recipe.material.delete('"[]') %> </td>
+      <td> <%= image_tag recipe.food_image_url, :style => "height: 120px" %>
+      <br>
+      <br>
+      <%= link_to "つくる", create_index_path(recipe_id: recipe.id), onclick: "window.open('#{recipe.url}', '_blank')" %>
+      </td>
+    </tr>
+  </tbody>
   <% end %>
-
 </table>
