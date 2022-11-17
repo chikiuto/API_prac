@@ -1,7 +1,6 @@
 require 'json'
 require 'net/http'
 require 'uri'
-require 'async'
 
 namespace :bat do
   desc 'update category and recipe table'
