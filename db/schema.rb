@@ -35,6 +35,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_05_050054) do
     t.datetime "updated_at", null: false
   end
 
+  
+
   create_table "reports", force: :cascade do |t|
     t.string "age"
     t.string "sex"
